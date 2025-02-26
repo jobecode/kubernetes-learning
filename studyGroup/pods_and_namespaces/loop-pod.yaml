@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: loop
+  namespace: ckad
+spec:
+  containers:
+    - name: busybox
+      image: busybox:1.36.1
+      command: ["sh", "-c", "for i in {1..10}; do echo \"Welcome $i times\"; done"]
