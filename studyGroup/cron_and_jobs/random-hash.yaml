@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: random-hash
+  namespace: ckad
+spec:
+  parallelism: 2
+  completions: 5
+  ttlSecondsAfterFinished: 100
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: random-hash
+          image: alpine:3.17.3
+          command: [ "sh", "-c", "echo $RANDOM | base64 | head -c 20" ]
