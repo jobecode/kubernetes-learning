@@ -14,7 +14,7 @@ We can use batch/v1 that finish after the job is done. The job is configured wit
 which means that Kubernetes will run up to 2 Pods in parallel until 5 executions are completed in total.
 At certain point, there will be at most 2 Pods running, but in total 5 Pods will have been created over time (since each execution generates a new Pod).
 
-Kubernetes jobs do not execue containers directly, but create pods that contain the containers.
+Kubernetes jobs do not execute containers directly, but create pods that contain the containers.
 To do this, we can create a template inside the job that contains the container.
 
 First of all, we have to witch the context to the kind cluster
@@ -72,7 +72,7 @@ random-hash-zrbvn   0/1     Completed   0          2m4s
 ```
 
 There are 5 Pods that executed the shell command. All of them are in the Completed state.
-As expected, Kubernetes has excuted 2 Pods in parallel until the completions value of 5 was reached.
+As expected, Kubernetes has executed 2 Pods in parallel until the completions value of 5 was reached.
 
 
 

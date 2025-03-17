@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  creationTimestamp: null
+  name: google-ping
+spec:
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+      name: google-ping
+    spec:
+      template:
+        metadata:
+          creationTimestamp: null
+        spec:
+          containers:
+            - name: google-ping
+              image: nginx:latest
+              command: [ "sh", "-c", "curl -s google.com" ]
+              resources: {}
+          restartPolicy: OnFailure
+  schedule: '*/1 * * * *'
+status: {}
