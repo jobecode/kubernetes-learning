@@ -3,11 +3,13 @@
 
 ## Doc
 
-https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
+https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#list-and-watch-filtering
 
 ## Objective
 
-The objective is learn how to work with labels and annotations.
+The objective is learn how to work with labels and annotations and to see the difference between them.
+
 
 
 ## Exercise
@@ -132,5 +134,72 @@ kubectl get pods -n ckad -l 'deployer in (jobe), team=artemidis'
 
 ```bash
 kubectl get pods -n ckad -l 'deployer in (jobe), team=artemidis, tier=backend'
+```
+
+### 10. update the label of the pod-1
+
+```bash
+kubectl label pod pod-1 -n ckad tier=frontend --overwrite
+```
+
+
+
+
+
+
+
+
+## Exercise 2: Labels 
+
+Create a Pod with the image nginx:1.25.1 that assigns two recommended labels: one for defining the application name with the value F5-nginx, and one for defining the tool used to manage the application named helm.
+
+Render the assigned labels of the Pod object.
+
+
+
+## Solution Steps
+
+### 1. Create the Pod
+First, switch to the kind cluster context:
+
+```bash 
+kubectl config get-contexts
+kubectl config use-context kind-k8s-labs
+```
+
+Create the YAML manifest.
+The yaml will look like:
+
+Used the recommended labels from the documentation. https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/
+
+```yaml
+apiVersion: v1  
+kind: Pod
+metadata:
+  namespace: ckad
+  labels:
+    app.kubernetes.io/name: f5-nginx
+    app.kubernetes.io/managed-by: helm
+spec:
+    containers:
+        - name: app
+          image: nginx:1.25.1
+``` 
+
+### 2. Apply the Manifest
+
+```bash
+kubectl apply -f pod.yaml
+```
+    
+### 3. Check the Pod Status
+
+```bash
+kubectl get pods -n ckad
+```
+### 4. Check the Labels
+
+```bash
+kubetcl get pod f5-nginx -n ckad --show-labels
 ```
 
